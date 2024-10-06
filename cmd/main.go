@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Go_lang/internal/package/storage"
+	"Go_lang/internal/pkg/storage"
 	"fmt"
 	"log"
 )
