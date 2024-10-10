@@ -13,12 +13,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	s.Set("dessert", "pancakes with honey")
+	//s.Set("dessert", "pancakes with honey")
 	s.Set("passkey", "12345678")
 
-	fmt.Println(s.Get("dessert"))
-	fmt.Println(s.GetKind("dessert"))
+	//fmt.Println(*s.Get("dessert"))
+	//fmt.Println(s.GetKind("dessert"))
 
-	fmt.Println(s.Get("passkey"))
+	fmt.Println(*s.Get("passkey"))
 	fmt.Println(s.GetKind("passkey"))
 }

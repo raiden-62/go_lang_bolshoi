@@ -41,8 +41,8 @@ func NewStorage() (Storage, error) {
 
 func (r Storage) Set(key, value string) {
 	defer r.logger.Sync()
-	
-	switch kind := getType(value); kind{
+
+	switch kind := getType(value); kind {
 	case KindInt:
 		r.inner[key] = Variable{v: value, t: kind}
 	case KindStr:
@@ -69,7 +69,7 @@ func (r Storage) Get(key string) *string {
 	return &res.v
 }
 
-func (r Storage) get(key string) (Value, bool){
+func (r Storage) get(key string) (Variable, bool) {
 	res, ok := r.inner[key]
 
 	if !ok {
@@ -79,20 +79,17 @@ func (r Storage) get(key string) (Value, bool){
 	return res, true
 }
 
-func (r Storage) GetKind(key string) Kind {
-	value_kind, ok := getType(key)
+func (r Storage) GetKind(key string) Kind { //is this even needed?
+	value_kind := getType(r.inner[key].v)
 
 	r.logger.Info("Returned type of value")
 	r.logger.Sync()
 
-	if !ok {
-		return KindUndefined
-	}
 	return value_kind
 
 }
 
-func getType(value string) Kind{
+func getType(value string) Kind {
 	var val any
 
 	val, err := strconv.Atoi(value)

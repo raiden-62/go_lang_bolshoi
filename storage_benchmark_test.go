@@ -1,19 +1,24 @@
-package storage
+package benchmarks
 
-import "testing"
+import (
+	"Go_lang/internal/pkg/storage"
+	"strconv"
+	"testing"
+)
 
-// func BenchmarkGet(b *testing.B) {
-// 	cases := []testCase{
-// 		{"string value", "hello", "world"},
-// 		{"empty string as value", "key2", ""},
-// 		{"int value", "intkey", "123456"}
-// 	}
+func BenchmarkGet(b *testing.B) {
 
-// 	s, err = NewStorage() //or storage.NewStorage()?
-// 	if err != nil {
-// 		b.Errorf("new storage: %v", err)
-// 	}
+	s, err := storage.NewStorage()
+	if err != nil {
+		b.Errorf("new storage: %v", err)
+	}
+	for i := 0; i < b.N; i++ {
+		s.Set(strconv.Itoa(i), strconv.Itoa(i))
+	}
 
-// 	b.ResetTimer()
-	
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		s.Get(strconv.Itoa(i))
+	}
 }
